@@ -16,7 +16,6 @@
 
     <h1>📅 Grocery History</h1>
 
-    <!-- 📜 List -->
     <ul id="calendarList"></ul>
 
 </div>
@@ -24,13 +23,22 @@
 <!-- 🪟 MODAL -->
 <div id="modal" class="modal">
     <div class="modal-content">
+
         <span class="close-btn" onclick="closeModal()">❌</span>
+
         <h2>🛒 Full List</h2>
+
         <div id="modalItems"></div>
+
+        <!-- ✏️ EDIT BUTTON -->
+        <button onclick="editList()" class="save-btn">✏️ Edit List</button>
+
     </div>
 </div>
 
 <script>
+let selectedIndex = null;
+
 document.addEventListener("DOMContentLoaded", () => {
 
     let lists = JSON.parse(localStorage.getItem("lists")) || [];
@@ -56,7 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
             ${previewHTML}
         `;
 
-        /* 🔥 click opens modal */
         li.onclick = () => openModal(index);
 
         container.appendChild(li);
@@ -67,6 +74,9 @@ document.addEventListener("DOMContentLoaded", () => {
 /* 🪟 OPEN MODAL */
 function openModal(index) {
     let lists = JSON.parse(localStorage.getItem("lists")) || [];
+
+    selectedIndex = index;
+
     const modal = document.getElementById("modal");
     const modalItems = document.getElementById("modalItems");
 
@@ -87,10 +97,26 @@ function openModal(index) {
 function closeModal() {
     document.getElementById("modal").style.display = "none";
 }
+
+/* ✏️ EDIT LIST */
+function editList() {
+    let lists = JSON.parse(localStorage.getItem("lists")) || [];
+
+    if (selectedIndex === null) return;
+
+    const listToEdit = lists[selectedIndex];
+
+    // send list to main page
+    localStorage.setItem("currentList", JSON.stringify(listToEdit.items));
+
+    // go back to main page
+    window.location.href = "index.html";
+}
 </script>
 
 </body>
 </html>
+
 
 
 
