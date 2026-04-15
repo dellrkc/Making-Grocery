@@ -62,9 +62,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const dateText = list.updatedAt
-        ? `Updated: ${list.updatedAt}`
-        : `Created: ${list.createdAt}`;
+    ? `Updated: ${list.updatedAt}`
+    : list.createdAt
+        ? `Created: ${list.createdAt}`
+        : `Created: ${list.date}`; // 🔥 fallback for old data
 
+        
     li.innerHTML = `
         <strong>${dateText}</strong><br>
         ${previewHTML}
