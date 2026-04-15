@@ -1,38 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>History</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-<div class="app">
-    <a href="index.html" class="nav-btn">⬅ Back</a>
-
-    <h1>📅 Grocery History</h1>
-
-    <ul id="calendarList"></ul>
-</div>
-
 <script>
 let lists = JSON.parse(localStorage.getItem("lists")) || [];
+
 const container = document.getElementById("calendarList");
 
 lists.forEach(list => {
     const li = document.createElement("li");
 
+    const previewItems = list.items.slice(0, 3);
+
+    const previewHTML = previewItems
+        .map(i => "• " + i.text)
+        .join("<br>");
+
+    const hasMore = list.items.length > 3 ? "<br>..." : "";
+
     li.innerHTML = `
         <strong>${list.date}</strong><br>
-        ${list.items.map(i => "• " + i.text).join("<br>")}
+        ${previewHTML}
+        ${hasMore}
     `;
 
     container.appendChild(li);
 });
 </script>
 
-</body>
-</html>
 
 
 
