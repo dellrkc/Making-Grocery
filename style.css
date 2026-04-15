@@ -49,7 +49,7 @@ input, select {
     border-radius: 8px;
 }
 
-/* 📦 Save Button */
+/* 📦 Save */
 .save-btn {
     width: 100%;
     margin: 10px 0;
@@ -90,8 +90,7 @@ li button {
     padding: 5px 8px;
 }
 
-
-/* 📜 History Section */
+/* 📜 History */
 #history li {
     background: #eef3ff;
     margin: 6px 0;
@@ -101,7 +100,7 @@ li button {
     font-size: 14px;
 }
 
-/* 🌙 DARK MODE */
+/* 🌙 Dark Mode */
 .dark {
     background: #121212;
 }
@@ -124,7 +123,6 @@ li button {
 .dark #history li {
     background: #2d2d3a;
 }
-
 
 
 
