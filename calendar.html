@@ -1,35 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grocery History</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+    <!-- 🔙 Back -->
+    <a href="index.html" class="nav-btn">⬅ Back</a>
+
+    <h1>📅 Grocery History</h1>
+
+    <!-- 📜 List -->
+    <ul id="calendarList"></ul>
+
+</div>
+
+<!-- 🪟 MODAL -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">❌</span>
+        <h2>🛒 Full List</h2>
+        <div id="modalItems"></div>
+    </div>
+</div>
+
 <script>
-let lists = JSON.parse(localStorage.getItem("lists")) || [];
-const container = document.getElementById("calendarList");
+document.addEventListener("DOMContentLoaded", () => {
 
-lists.forEach((list, index) => {
-    const li = document.createElement("li");
+    let lists = JSON.parse(localStorage.getItem("lists")) || [];
+    const container = document.getElementById("calendarList");
 
-    const previewItems = list.items.slice(0, 3);
+    lists.forEach((list, index) => {
+        const li = document.createElement("li");
 
-    let previewHTML = "";
+        const previewItems = list.items.slice(0, 3);
 
-    previewItems.forEach(item => {
-        previewHTML += `• ${item.text}<br>`;
+        let previewHTML = "";
+
+        previewItems.forEach(item => {
+            previewHTML += `• ${item.text}<br>`;
+        });
+
+        if (list.items.length > 3) {
+            previewHTML += "...";
+        }
+
+        li.innerHTML = `
+            <strong>${list.date}</strong><br>
+            ${previewHTML}
+        `;
+
+        /* 🔥 click opens modal */
+        li.onclick = () => openModal(index);
+
+        container.appendChild(li);
     });
 
-    if (list.items.length > 3) {
-        previewHTML += "...";
-    }
-
-    li.innerHTML = `
-        <strong>${list.date}</strong><br>
-        ${previewHTML}
-    `;
-
-    /* 🔥 CLICK → OPEN MODAL */
-    li.onclick = () => openModal(index);
-
-    container.appendChild(li);
 });
 
 /* 🪟 OPEN MODAL */
 function openModal(index) {
+    let lists = JSON.parse(localStorage.getItem("lists")) || [];
     const modal = document.getElementById("modal");
     const modalItems = document.getElementById("modalItems");
 
@@ -51,6 +88,10 @@ function closeModal() {
     document.getElementById("modal").style.display = "none";
 }
 </script>
+
+</body>
+</html>
+
 
 
 
