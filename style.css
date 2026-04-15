@@ -3,104 +3,74 @@ body {
     background: #f4f6f8;
     display: flex;
     justify-content: center;
-    margin-top: 40px;
-    transition: 0.3s;
+    align-items: center;
+    height: 100vh; /* 🔥 centers vertically */
+    margin: 0;
 }
 
 .app {
     background: white;
     padding: 20px;
     border-radius: 16px;
-    width: 340px;
+    width: 320px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    transition: 0.3s;
 }
 
-/* 🌙 Toggle */
 .toggle-btn {
     float: right;
-    padding: 6px 10px;
     background: #333;
     color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.input {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 15px;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+button {
+    padding: 10px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
 }
 
-/* 🧾 Input */
-.input {
-    display: grid;
-    grid-template-columns: 1fr 1fr auto;
-    gap: 6px;
-    margin-bottom: 10px;
-}
-
-input, select {
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    width: 100%;
-}
-
-/* ➕ Button */
 .input button {
     background: #4CAF50;
     color: white;
-    border-radius: 8px;
 }
 
-/* 📦 Save */
-.save-btn {
-    width: 100%;
-    margin: 10px 0;
-    background: #007BFF;
-    color: white;
-    border-radius: 10px;
-    font-weight: bold;
-}
-
-/* 📋 List */
 ul {
     list-style: none;
     padding: 0;
 }
 
 li {
-    background: #fafafa;
+    background: #f1f1f1;
     margin: 8px 0;
     padding: 12px;
     border-radius: 10px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
-/* ☑️ Checkbox */
-input[type="checkbox"] {
-    transform: scale(1.3);
-    cursor: pointer;
-}
-
-/* ❌ Delete */
 li button {
     background: #ff4d4d;
     color: white;
-    border-radius: 6px;
-    padding: 5px 8px;
 }
 
-/* 📜 History */
-#history li {
-    background: #eef3ff;
-    margin: 6px 0;
-    padding: 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-/* 🌙 Dark Mode */
+/* DARK MODE */
 .dark {
     background: #121212;
 }
@@ -110,7 +80,7 @@ li button {
     color: white;
 }
 
-.dark input, .dark select {
+.dark input {
     background: #2a2a2a;
     color: white;
     border: 1px solid #444;
@@ -120,9 +90,7 @@ li button {
     background: #2a2a2a;
 }
 
-.dark #history li {
-    background: #2d2d3a;
-}
+
 
 
 
