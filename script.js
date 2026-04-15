@@ -27,21 +27,6 @@ function updateUI() {
     });
 }
 
-/* History */
-function updateHistory() {
-    const history = document.getElementById("history");
-    history.innerHTML = "";
-
-    lists.forEach((listData, index) => {
-        const li = document.createElement("li");
-
-        li.innerText = `🗓️ ${listData.date}`;
-        li.onclick = () => loadList(index);
-
-        history.appendChild(li);
-    });
-}
-
 /* Add */
 function addItem() {
     const input = document.getElementById("item");
@@ -92,14 +77,6 @@ function saveList() {
     localStorage.setItem("currentList", JSON.stringify(items));
 
     updateUI();
-    updateHistory();
-}
-
-/* Load */
-function loadList(index) {
-    items = [...lists[index].items];
-    localStorage.setItem("currentList", JSON.stringify(items));
-    updateUI();
 }
 
 /* Enter */
@@ -116,7 +93,8 @@ function toggleDarkMode() {
 
 /* Init */
 updateUI();
-updateHistory();
+
+
 
 
 
