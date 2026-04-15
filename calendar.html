@@ -11,12 +11,14 @@
 
 <div class="app">
 
-    <!-- 🔙 Back -->
-    <a href="index.html" class="nav-btn">⬅ Back</a>
+    <!-- 🔥 STICKY HEADER -->
+    <div class="header">
+        <a href="index.html" class="nav-btn">⬅ Back</a>
+        <h1>📅 Grocery History</h1>
+    </div>
 
-    <h1>📅 Grocery History</h1>
-
-    <ul id="calendarList"></ul>
+    <!-- 📜 SCROLLABLE LIST -->
+    <ul id="calendarList" class="scroll-area"></ul>
 
 </div>
 
@@ -30,8 +32,8 @@
 
         <div id="modalItems"></div>
 
-        <!-- ✏️ EDIT BUTTON -->
         <button onclick="editList()" class="save-btn">✏️ Edit List</button>
+        <button onclick="deleteList()" class="delete-btn">🗑️ Delete List</button>
 
     </div>
 </div>
@@ -93,12 +95,12 @@ function openModal(index) {
     modal.style.display = "flex";
 }
 
-/* ❌ CLOSE MODAL */
+/* ❌ CLOSE */
 function closeModal() {
     document.getElementById("modal").style.display = "none";
 }
 
-/* ✏️ EDIT LIST */
+/* ✏️ EDIT */
 function editList() {
     let lists = JSON.parse(localStorage.getItem("lists")) || [];
 
@@ -106,16 +108,30 @@ function editList() {
 
     const listToEdit = lists[selectedIndex];
 
-    // send list to main page
     localStorage.setItem("currentList", JSON.stringify(listToEdit.items));
 
-    // go back to main page
-    window.location.href = "index.html";
+    window.location.replace("index.html");
+}
+
+/* 🗑️ DELETE */
+function deleteList() {
+    let lists = JSON.parse(localStorage.getItem("lists")) || [];
+
+    if (selectedIndex === null) return;
+
+    if (!confirm("Delete this list?")) return;
+
+    lists.splice(selectedIndex, 1);
+
+    localStorage.setItem("lists", JSON.stringify(lists));
+
+    location.reload();
 }
 </script>
 
 </body>
 </html>
+
 
 
 
