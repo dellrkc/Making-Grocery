@@ -1,6 +1,7 @@
-let items = JSON.parse(localStorage.getItem("items")) || [];
+let items = JSON.parse(localStorage.getItem("currentList")) || [];
+let lists = JSON.parse(localStorage.getItem("lists")) || [];
 
-/* UPDATE UI */
+/* UI */
 function updateUI() {
     const list = document.getElementById("list");
     list.innerHTML = "";
@@ -9,27 +10,50 @@ function updateUI() {
         const li = document.createElement("li");
 
         li.innerHTML = `
-            <span style="text-decoration:${item.done ? 'line-through' : 'none'}">
-                ${item.text}
-            </span>
+            <div style="display:flex; align-items:center; gap:8px;">
+                <input type="checkbox"
+                    ${item.done ? "checked" : ""}
+                    onchange="toggleItem(${index})">
+
+                <span style="text-decoration:${item.done ? 'line-through' : 'none'}">
+                    ${item.text}
+                </span>
+            </div>
+
             <button onclick="deleteItem(${index})">❌</button>
         `;
-
-        li.onclick = () => toggleItem(index);
 
         list.appendChild(li);
     });
 }
 
-/* ADD ITEM */
+/* History */
+function updateHistory() {
+    const history = document.getElementById("history");
+    history.innerHTML = "";
+
+    lists.forEach((listData, index) => {
+        const li = document.createElement("li");
+
+        li.innerText = `🗓️ ${listData.date}`;
+        li.onclick = () => loadList(index);
+
+        history.appendChild(li);
+    });
+}
+
+/* Add */
 function addItem() {
     const input = document.getElementById("item");
 
     if (!input.value.trim()) return;
 
-    items.push({ text: input.value, done: false });
+    items.push({
+        text: input.value,
+        done: false
+    });
 
-    localStorage.setItem("items", JSON.stringify(items));
+    localStorage.setItem("currentList", JSON.stringify(items));
 
     input.value = "";
     input.focus();
@@ -37,31 +61,65 @@ function addItem() {
     updateUI();
 }
 
-/* DELETE */
+/* Delete */
 function deleteItem(index) {
     items.splice(index, 1);
-    localStorage.setItem("items", JSON.stringify(items));
+    localStorage.setItem("currentList", JSON.stringify(items));
     updateUI();
 }
 
-/* TOGGLE */
+/* Toggle */
 function toggleItem(index) {
     items[index].done = !items[index].done;
-    localStorage.setItem("items", JSON.stringify(items));
+    localStorage.setItem("currentList", JSON.stringify(items));
     updateUI();
 }
 
-/* ENTER KEY */
+/* Save */
+function saveList() {
+    if (items.length === 0) {
+        alert("Add items first!");
+        return;
+    }
+
+    const date = new Date().toLocaleString();
+
+    lists.push({
+        date,
+        items: [...items]
+    });
+
+    localStorage.setItem("lists", JSON.stringify(lists));
+
+    items = [];
+    localStorage.setItem("currentList", JSON.stringify(items));
+
+    updateUI();
+    updateHistory();
+}
+
+/* Load */
+function loadList(index) {
+    items = [...lists[index].items];
+    localStorage.setItem("currentList", JSON.stringify(items));
+    updateUI();
+}
+
+/* Enter key */
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("item").addEventListener("keypress", function(e) {
         if (e.key === "Enter") addItem();
     });
 });
 
-/* DARK MODE */
+/* Dark mode */
 function toggleDarkMode() {
     document.body.classList.toggle("dark");
 }
 
-/* INIT */
+/* Init */
 updateUI();
+updateHistory();
+
+
+
