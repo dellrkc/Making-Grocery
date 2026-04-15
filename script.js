@@ -1,7 +1,7 @@
 let items = JSON.parse(localStorage.getItem("currentList")) || [];
 let lists = JSON.parse(localStorage.getItem("lists")) || [];
 
-/* 🔄 Update Current List */
+/* 🔄 UI */
 function updateUI() {
     const list = document.getElementById("list");
     list.innerHTML = "";
@@ -17,7 +17,7 @@ function updateUI() {
 
                 <span style="text-decoration:${item.done ? 'line-through' : 'none'}">
                     ${item.text}
-                    <small>(${item.category || ""})</small>
+                    <small>(${item.category})</small>
                 </span>
             </div>
 
@@ -28,7 +28,7 @@ function updateUI() {
     });
 }
 
-/* 📜 Update History */
+/* 📜 History */
 function updateHistory() {
     const history = document.getElementById("history");
     history.innerHTML = "";
@@ -36,15 +36,14 @@ function updateHistory() {
     lists.forEach((listData, index) => {
         const li = document.createElement("li");
 
-        li.innerText = `List from ${listData.date}`;
-
+        li.innerText = `🗓️ ${listData.date}`;
         li.onclick = () => loadList(index);
 
         history.appendChild(li);
     });
 }
 
-/* ➕ Add Item */
+/* ➕ Add */
 function addItem() {
     const input = document.getElementById("item");
     const category = document.getElementById("category").value;
@@ -82,7 +81,7 @@ function toggleItem(index) {
 /* 📦 Save List */
 function saveList() {
     if (items.length === 0) {
-        alert("Add items before saving!");
+        alert("Add items first!");
         return;
     }
 
@@ -102,18 +101,16 @@ function saveList() {
     updateHistory();
 }
 
-/* 📂 Load Old List */
+/* 📂 Load */
 function loadList(index) {
     items = [...lists[index].items];
     localStorage.setItem("currentList", JSON.stringify(items));
     updateUI();
 }
 
-/* ⌨️ Enter Support */
+/* ⌨️ Enter */
 document.getElementById("item").addEventListener("keypress", function(e) {
-    if (e.key === "Enter") {
-        addItem();
-    }
+    if (e.key === "Enter") addItem();
 });
 
 /* 🌙 Dark Mode */
@@ -129,12 +126,10 @@ function toggleDarkMode() {
 /* 💾 Load Theme */
 if (localStorage.getItem("darkMode") === "true") {
     document.body.classList.add("dark");
-    document.querySelector(".toggle-btn").textContent = "☀️";
 }
 
 /* 🚀 Init */
 updateUI();
 updateHistory();
-
 
 
