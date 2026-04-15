@@ -15,7 +15,7 @@ body {
     transition: 0.3s;
 }
 
-/* 🌙 Toggle Button */
+/* 🌙 Toggle */
 .toggle-btn {
     float: right;
     padding: 5px 10px;
@@ -31,7 +31,7 @@ body {
 .input {
     display: flex;
     gap: 5px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 input, select {
@@ -50,6 +50,14 @@ button {
     border: none;
     border-radius: 6px;
     cursor: pointer;
+}
+
+/* 📦 Save Button */
+.save-btn {
+    width: 100%;
+    margin-bottom: 10px;
+    background: #4CAF50;
+    color: white;
 }
 
 /* 📋 List */
@@ -74,6 +82,13 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
+/* 📜 History */
+#history li {
+    cursor: pointer;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
 /* 🌙 DARK MODE */
 .dark {
     background: #121212;
@@ -92,15 +107,6 @@ input[type="checkbox"] {
 
 .dark li {
     background: #2a2a2a;
-}
-.dark li {
-    background: #2a2a2a;
-}
-
-#history li {
-    cursor: pointer;
-    font-size: 14px;
-    opacity: 0.8;
 }
 
 
