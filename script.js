@@ -67,34 +67,33 @@ function saveList() {
     let lists = JSON.parse(localStorage.getItem("lists")) || [];
     let editingIndex = localStorage.getItem("editingIndex");
 
-    const date = new Date().toLocaleString();
+    const now = new Date().toLocaleString();
 
     if (editingIndex !== null) {
-        // ✏️ OVERWRITE EXISTING LIST
+        // ✏️ OVERWRITE
         lists[editingIndex] = {
-            date,
+            date: `Updated: ${now}`, // 🔥 UPDATED LABEL
             items: [...items]
         };
 
-        // clear edit mode
         localStorage.removeItem("editingIndex");
 
     } else {
-        // ➕ CREATE NEW LIST
+        // ➕ NEW LIST
         lists.push({
-            date,
+            date: now,
             items: [...items]
         });
     }
 
     localStorage.setItem("lists", JSON.stringify(lists));
 
-    // clear current list
     items = [];
     localStorage.setItem("currentList", JSON.stringify(items));
 
     updateUI();
 }
+
 
 /* Enter */
 document.addEventListener("DOMContentLoaded", () => {
