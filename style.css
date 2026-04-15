@@ -97,5 +97,12 @@ input[type="checkbox"] {
     background: #2a2a2a;
 }
 
+#history li {
+    cursor: pointer;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+
 
 
