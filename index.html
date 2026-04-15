@@ -11,19 +11,28 @@
 
 <div class="app">
 
+    <!-- 🌙 Dark Mode -->
     <button onclick="toggleDarkMode()" class="toggle-btn">🌙</button>
 
+    <!-- 🛒 Title -->
     <h1>🛒 Grocery List</h1>
 
+    <!-- 📅 NAV BUTTON (RIGHT UNDER TITLE) -->
+    <a href="calendar.html" class="nav-btn">📅 View History</a>
+
+    <!-- 🧾 Input -->
     <div class="input">
         <input type="text" id="item" placeholder="Add grocery item">
         <button onclick="addItem()">+</button>
     </div>
 
+    <!-- 📦 Save -->
     <button onclick="saveList()" class="save-btn">📦 Save List</button>
 
+    <!-- 📋 Current List -->
     <ul id="list"></ul>
 
+    <!-- 📜 (optional, you can keep or remove since we now have calendar page) -->
     <div class="history-section">
         <h3>📜 Past Lists</h3>
         <ul id="history"></ul>
@@ -35,6 +44,7 @@
 
 </body>
 </html>
+
 
 
 
