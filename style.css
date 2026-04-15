@@ -122,6 +122,16 @@ li button {
     background: #2d2d3a;
 }
 
+.save-btn {
+    width: 100%;
+    margin-bottom: 10px;
+    background: #007BFF;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 8px;
+}
+
 
 
 
