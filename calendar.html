@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>History</title>
+    <title>Grocery History</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="style.css">
@@ -15,23 +15,28 @@
 
     <h1>📅 Grocery History</h1>
 
+    <!-- ✅ THIS IS REQUIRED (fixes your error) -->
     <ul id="calendarList"></ul>
 
 </div>
 
 <script>
-try {
-    let lists = JSON.parse(localStorage.getItem("lists")) || [];
+/* ✅ WAIT UNTIL PAGE LOADS (fixes crash) */
+document.addEventListener("DOMContentLoaded", () => {
 
+    let lists = JSON.parse(localStorage.getItem("lists")) || [];
     const container = document.getElementById("calendarList");
 
+    /* safety check */
     if (!container) {
-        throw new Error("calendarList not found");
+        console.error("calendarList not found");
+        return;
     }
 
     lists.forEach(list => {
         const li = document.createElement("li");
 
+        /* only first 3 items */
         const previewItems = list.items.slice(0, 3);
 
         let previewHTML = "";
@@ -40,6 +45,7 @@ try {
             previewHTML += `• ${item.text}<br>`;
         });
 
+        /* show ... if more */
         if (list.items.length > 3) {
             previewHTML += "...";
         }
@@ -52,14 +58,14 @@ try {
         container.appendChild(li);
     });
 
-} catch (error) {
-    document.body.innerHTML = "<h2 style='text-align:center;'>⚠️ Error loading history</h2>";
-    console.error(error);
-}
+});
 </script>
 
 </body>
 </html>
+
+
+
 
 
 
