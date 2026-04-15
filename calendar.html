@@ -108,7 +108,11 @@ function editList() {
 
     const listToEdit = lists[selectedIndex];
 
+    // send items
     localStorage.setItem("currentList", JSON.stringify(listToEdit.items));
+
+    // 🔥 NEW: track which list we're editing
+    localStorage.setItem("editingIndex", selectedIndex);
 
     window.location.replace("index.html");
 }
