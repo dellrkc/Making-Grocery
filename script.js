@@ -1,7 +1,6 @@
-let items = JSON.parse(localStorage.getItem("currentList")) || [];
-let lists = JSON.parse(localStorage.getItem("lists")) || [];
+let items = JSON.parse(localStorage.getItem("items")) || [];
 
-/* 🔄 UI */
+/* UPDATE UI */
 function updateUI() {
     const list = document.getElementById("list");
     list.innerHTML = "";
@@ -10,53 +9,27 @@ function updateUI() {
         const li = document.createElement("li");
 
         li.innerHTML = `
-            <div style="display:flex; align-items:center; gap:8px;">
-                <input type="checkbox"
-                    ${item.done ? "checked" : ""}
-                    onchange="toggleItem(${index})">
-
-                <span style="text-decoration:${item.done ? 'line-through' : 'none'}">
-                    ${item.text}
-                    <small>(${item.category})</small>
-                </span>
-            </div>
-
+            <span style="text-decoration:${item.done ? 'line-through' : 'none'}">
+                ${item.text}
+            </span>
             <button onclick="deleteItem(${index})">❌</button>
         `;
+
+        li.onclick = () => toggleItem(index);
 
         list.appendChild(li);
     });
 }
 
-/* 📜 History */
-function updateHistory() {
-    const history = document.getElementById("history");
-    history.innerHTML = "";
-
-    lists.forEach((listData, index) => {
-        const li = document.createElement("li");
-
-        li.innerText = `🗓️ ${listData.date}`;
-        li.onclick = () => loadList(index);
-
-        history.appendChild(li);
-    });
-}
-
-/* ➕ Add */
+/* ADD ITEM */
 function addItem() {
     const input = document.getElementById("item");
-    const category = document.getElementById("category").value;
 
     if (!input.value.trim()) return;
 
-    items.push({
-        text: input.value,
-        done: false,
-        category
-    });
+    items.push({ text: input.value, done: false });
 
-    localStorage.setItem("currentList", JSON.stringify(items));
+    localStorage.setItem("items", JSON.stringify(items));
 
     input.value = "";
     input.focus();
@@ -64,72 +37,31 @@ function addItem() {
     updateUI();
 }
 
-/* ❌ Delete */
+/* DELETE */
 function deleteItem(index) {
     items.splice(index, 1);
-    localStorage.setItem("currentList", JSON.stringify(items));
+    localStorage.setItem("items", JSON.stringify(items));
     updateUI();
 }
 
-/* ☑️ Toggle */
+/* TOGGLE */
 function toggleItem(index) {
     items[index].done = !items[index].done;
-    localStorage.setItem("currentList", JSON.stringify(items));
+    localStorage.setItem("items", JSON.stringify(items));
     updateUI();
 }
 
-/* 📦 Save List */
-function saveList() {
-    if (items.length === 0) {
-        alert("Add items first!");
-        return;
-    }
-
-    const date = new Date().toLocaleString();
-
-    lists.push({
-        date,
-        items: [...items]
+/* ENTER KEY */
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("item").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") addItem();
     });
-
-    localStorage.setItem("lists", JSON.stringify(lists));
-
-    items = [];
-    localStorage.setItem("currentList", JSON.stringify(items));
-
-    updateUI();
-    updateHistory();
-}
-
-/* 📂 Load */
-function loadList(index) {
-    items = [...lists[index].items];
-    localStorage.setItem("currentList", JSON.stringify(items));
-    updateUI();
-}
-
-/* ⌨️ Enter */
-document.getElementById("item").addEventListener("keypress", function(e) {
-    if (e.key === "Enter") addItem();
 });
 
-/* 🌙 Dark Mode */
+/* DARK MODE */
 function toggleDarkMode() {
     document.body.classList.toggle("dark");
-
-    const isDark = document.body.classList.contains("dark");
-    localStorage.setItem("darkMode", isDark);
-
-    document.querySelector(".toggle-btn").textContent = isDark ? "☀️" : "🌙";
 }
 
-/* 💾 Load Theme */
-if (localStorage.getItem("darkMode") === "true") {
-    document.body.classList.add("dark");
-}
-
-/* 🚀 Init */
+/* INIT */
 updateUI();
-updateHistory();
-
-
