@@ -1,76 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Grocery History</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-<div class="app">
-
-    <a href="index.html" class="nav-btn">⬅ Back</a>
-
-    <h1>📅 Grocery History</h1>
-
-    <!-- ✅ THIS IS REQUIRED (fixes your error) -->
-    <ul id="calendarList"></ul>
-    <!-- 🪟 MODAL -->
-<div id="modal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn" onclick="closeModal()">❌</span>
-        <h2>🛒 Full List</h2>
-        <div id="modalItems"></div>
-    </div>
-</div>
-
-</div>
-
 <script>
-/* ✅ WAIT UNTIL PAGE LOADS (fixes crash) */
-document.addEventListener("DOMContentLoaded", () => {
+let lists = JSON.parse(localStorage.getItem("lists")) || [];
+const container = document.getElementById("calendarList");
 
-    let lists = JSON.parse(localStorage.getItem("lists")) || [];
-    const container = document.getElementById("calendarList");
+lists.forEach((list, index) => {
+    const li = document.createElement("li");
 
-    /* safety check */
-    if (!container) {
-        console.error("calendarList not found");
-        return;
-    }
+    const previewItems = list.items.slice(0, 3);
 
-    lists.forEach(list => {
-        const li = document.createElement("li");
+    let previewHTML = "";
 
-        /* only first 3 items */
-        const previewItems = list.items.slice(0, 3);
-
-        let previewHTML = "";
-
-        previewItems.forEach(item => {
-            previewHTML += `• ${item.text}<br>`;
-        });
-
-        /* show ... if more */
-        if (list.items.length > 3) {
-            previewHTML += "...";
-        }
-
-        li.innerHTML = `
-            <strong>${list.date}</strong><br>
-            ${previewHTML}
-        `;
-
-        container.appendChild(li);
+    previewItems.forEach(item => {
+        previewHTML += `• ${item.text}<br>`;
     });
 
-});
-</script>
+    if (list.items.length > 3) {
+        previewHTML += "...";
+    }
 
-</body>
-</html>
+    li.innerHTML = `
+        <strong>${list.date}</strong><br>
+        ${previewHTML}
+    `;
+
+    /* 🔥 CLICK → OPEN MODAL */
+    li.onclick = () => openModal(index);
+
+    container.appendChild(li);
+});
+
+/* 🪟 OPEN MODAL */
+function openModal(index) {
+    const modal = document.getElementById("modal");
+    const modalItems = document.getElementById("modalItems");
+
+    const list = lists[index];
+
+    let fullHTML = "";
+
+    list.items.forEach(item => {
+        fullHTML += `• ${item.text}<br>`;
+    });
+
+    modalItems.innerHTML = fullHTML;
+
+    modal.style.display = "flex";
+}
+
+/* ❌ CLOSE MODAL */
+function closeModal() {
+    document.getElementById("modal").style.display = "none";
+}
+</script>
 
 
 
