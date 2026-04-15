@@ -47,30 +47,35 @@ document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("calendarList");
 
     lists.forEach((list, index) => {
-        const li = document.createElement("li");
+    const li = document.createElement("li");
 
-        const previewItems = list.items.slice(0, 3);
+    const previewItems = list.items.slice(0, 3);
 
-        let previewHTML = "";
+    let previewHTML = "";
 
-        previewItems.forEach(item => {
-            previewHTML += `• ${item.text}<br>`;
-        });
-
-        if (list.items.length > 3) {
-            previewHTML += "...";
-        }
-
-        li.innerHTML = `
-            <strong>${list.date}</strong><br>
-            ${previewHTML}
-        `;
-
-        li.onclick = () => openModal(index);
-
-        container.appendChild(li);
+    previewItems.forEach(item => {
+        previewHTML += `• ${item.text}<br>`;
     });
 
+    if (list.items.length > 3) {
+        previewHTML += "...";
+    }
+
+    const dateText = list.updatedAt
+        ? `Updated: ${list.updatedAt}`
+        : `Created: ${list.createdAt}`;
+
+    li.innerHTML = `
+        <strong>${dateText}</strong><br>
+        ${previewHTML}
+    `;
+
+    li.onclick = () => openModal(index);
+
+    container.appendChild(li);
+});
+
+    
 });
 
 /* 🪟 OPEN MODAL */
