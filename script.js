@@ -70,18 +70,20 @@ function saveList() {
     const now = new Date().toLocaleString();
 
     if (editingIndex !== null) {
-        // ✏️ OVERWRITE
+        // ✏️ UPDATE EXISTING
         lists[editingIndex] = {
-            date: `Updated: ${now}`, // 🔥 UPDATED LABEL
+            ...lists[editingIndex], // keep createdAt
+            updatedAt: now,
             items: [...items]
         };
 
         localStorage.removeItem("editingIndex");
 
     } else {
-        // ➕ NEW LIST
+        // ➕ CREATE NEW
         lists.push({
-            date: now,
+            createdAt: now,
+            updatedAt: null,
             items: [...items]
         });
     }
