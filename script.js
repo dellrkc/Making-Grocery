@@ -1,7 +1,7 @@
 let items = JSON.parse(localStorage.getItem("currentList")) || [];
 let lists = JSON.parse(localStorage.getItem("lists")) || [];
 
-/* UI */
+/* 🔄 UPDATE CURRENT LIST */
 function updateUI() {
     const list = document.getElementById("list");
     list.innerHTML = "";
@@ -27,9 +27,12 @@ function updateUI() {
     });
 }
 
-/* History */
+/* 📜 UPDATE HISTORY */
 function updateHistory() {
     const history = document.getElementById("history");
+
+    if (!history) return; // prevents crash if missing
+
     history.innerHTML = "";
 
     lists.forEach((listData, index) => {
@@ -42,7 +45,7 @@ function updateHistory() {
     });
 }
 
-/* Add */
+/* ➕ ADD ITEM */
 function addItem() {
     const input = document.getElementById("item");
 
@@ -61,21 +64,21 @@ function addItem() {
     updateUI();
 }
 
-/* Delete */
+/* ❌ DELETE ITEM */
 function deleteItem(index) {
     items.splice(index, 1);
     localStorage.setItem("currentList", JSON.stringify(items));
     updateUI();
 }
 
-/* Toggle */
+/* ☑️ TOGGLE CHECKBOX */
 function toggleItem(index) {
     items[index].done = !items[index].done;
     localStorage.setItem("currentList", JSON.stringify(items));
     updateUI();
 }
 
-/* Save */
+/* 📦 SAVE LIST */
 function saveList() {
     if (items.length === 0) {
         alert("Add items first!");
@@ -98,26 +101,30 @@ function saveList() {
     updateHistory();
 }
 
-/* Load */
+/* 📂 LOAD OLD LIST */
 function loadList(index) {
     items = [...lists[index].items];
     localStorage.setItem("currentList", JSON.stringify(items));
     updateUI();
 }
 
-/* Enter key */
+/* ⌨️ ENTER KEY SUPPORT */
 document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("item").addEventListener("keypress", function(e) {
-        if (e.key === "Enter") addItem();
-    });
+    const input = document.getElementById("item");
+
+    if (input) {
+        input.addEventListener("keypress", function(e) {
+            if (e.key === "Enter") addItem();
+        });
+    }
 });
 
-/* Dark mode */
+/* 🌙 DARK MODE */
 function toggleDarkMode() {
     document.body.classList.toggle("dark");
 }
 
-/* Init */
+/* 🚀 INIT */
 updateUI();
 updateHistory();
 
