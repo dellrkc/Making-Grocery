@@ -1,6 +1,5 @@
 <script>
 let lists = JSON.parse(localStorage.getItem("lists")) || [];
-
 const container = document.getElementById("calendarList");
 
 lists.forEach(list => {
@@ -8,21 +7,25 @@ lists.forEach(list => {
 
     const previewItems = list.items.slice(0, 3);
 
-    const previewHTML = previewItems
-        .map(i => "• " + i.text)
-        .join("<br>");
+    let previewHTML = "";
 
-    const hasMore = list.items.length > 3 ? "<br>..." : "";
+    previewItems.forEach(item => {
+        previewHTML += `• ${item.text}<br>`;
+    });
+
+    if (list.items.length > 3) {
+        previewHTML += "...";
+    }
 
     li.innerHTML = `
         <strong>${list.date}</strong><br>
         ${previewHTML}
-        ${hasMore}
     `;
 
     container.appendChild(li);
 });
 </script>
+
 
 
 
