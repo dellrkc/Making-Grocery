@@ -1,6 +1,7 @@
-let items = JSON.parse(localStorage.getItem("items")) || [];
+let items = [];
+let lists = JSON.parse(localStorage.getItem("lists")) || [];
 
-/* 🔄 Update UI */
+/* 🔄 Update Current List */
 function updateUI() {
     const list = document.getElementById("list");
     list.innerHTML = "";
@@ -27,7 +28,23 @@ function updateUI() {
     });
 }
 
-/* ➕ Add */
+/* 📜 Update History */
+function updateHistory() {
+    const history = document.getElementById("history");
+    history.innerHTML = "";
+
+    lists.forEach((listData, index) => {
+        const li = document.createElement("li");
+
+        li.innerText = `List from ${listData.date}`;
+
+        li.onclick = () => loadList(index);
+
+        history.appendChild(li);
+    });
+}
+
+/* ➕ Add Item */
 function addItem() {
     const input = document.getElementById("item");
     const category = document.getElementById("category").value;
@@ -40,8 +57,6 @@ function addItem() {
         category
     });
 
-    localStorage.setItem("items", JSON.stringify(items));
-
     input.value = "";
     input.focus();
 
@@ -51,18 +66,41 @@ function addItem() {
 /* ❌ Delete */
 function deleteItem(index) {
     items.splice(index, 1);
-    localStorage.setItem("items", JSON.stringify(items));
     updateUI();
 }
 
 /* ☑️ Toggle */
 function toggleItem(index) {
     items[index].done = !items[index].done;
-    localStorage.setItem("items", JSON.stringify(items));
     updateUI();
 }
 
-/* ⌨️ Enter Support */
+/* 📦 Save List */
+function saveList() {
+    if (items.length === 0) return;
+
+    const date = new Date().toLocaleDateString();
+
+    lists.push({
+        date,
+        items: [...items]
+    });
+
+    localStorage.setItem("lists", JSON.stringify(lists));
+
+    items = []; // clear current list
+
+    updateUI();
+    updateHistory();
+}
+
+/* 📂 Load Old List */
+function loadList(index) {
+    items = [...lists[index].items];
+    updateUI();
+}
+
+/* ⌨️ Enter Key */
 document.getElementById("item").addEventListener("keypress", function(e) {
     if (e.key === "Enter") {
         addItem();
@@ -87,4 +125,6 @@ if (localStorage.getItem("darkMode") === "true") {
 
 /* 🚀 Init */
 updateUI();
+updateHistory();
+
 
