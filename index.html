@@ -2,50 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Grocery List App</title>
+    <title>Grocery List</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="app">
 
-    <!-- 🌙 Dark Mode -->
     <button onclick="toggleDarkMode()" class="toggle-btn">🌙</button>
 
     <h1>🛒 Grocery List</h1>
 
-    <!-- 🧾 Input -->
     <div class="input">
         <input type="text" id="item" placeholder="Add grocery item">
-
-        <select id="category">
-            <option value="Produce">🥬 Produce</option>
-            <option value="Dairy">🥛 Dairy</option>
-            <option value="Meat">🥩 Meat</option>
-            <option value="Drinks">🧃 Drinks</option>
-        </select>
-
         <button onclick="addItem()">+</button>
     </div>
 
-    <!-- 📦 Save -->
-    <button onclick="saveList()" class="save-btn">📦 Save List</button>
-
-    <!-- 📋 Current -->
     <ul id="list"></ul>
-
-    <!-- 📜 History -->
-    <h3>📜 Past Lists</h3>
-    <ul id="history"></ul>
 
 </div>
 
-<script src="script.js"></script>
+<script defer src="script.js"></script>
 
 </body>
 </html>
+
+
 
 
 
