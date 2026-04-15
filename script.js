@@ -1,7 +1,7 @@
 let items = JSON.parse(localStorage.getItem("currentList")) || [];
 let lists = JSON.parse(localStorage.getItem("lists")) || [];
 
-/* 🔄 UPDATE CURRENT LIST */
+/* UI */
 function updateUI() {
     const list = document.getElementById("list");
     list.innerHTML = "";
@@ -27,12 +27,9 @@ function updateUI() {
     });
 }
 
-/* 📜 UPDATE HISTORY */
+/* History */
 function updateHistory() {
     const history = document.getElementById("history");
-
-    if (!history) return; // prevents crash if missing
-
     history.innerHTML = "";
 
     lists.forEach((listData, index) => {
@@ -45,16 +42,13 @@ function updateHistory() {
     });
 }
 
-/* ➕ ADD ITEM */
+/* Add */
 function addItem() {
     const input = document.getElementById("item");
 
     if (!input.value.trim()) return;
 
-    items.push({
-        text: input.value,
-        done: false
-    });
+    items.push({ text: input.value, done: false });
 
     localStorage.setItem("currentList", JSON.stringify(items));
 
@@ -64,21 +58,21 @@ function addItem() {
     updateUI();
 }
 
-/* ❌ DELETE ITEM */
+/* Delete */
 function deleteItem(index) {
     items.splice(index, 1);
     localStorage.setItem("currentList", JSON.stringify(items));
     updateUI();
 }
 
-/* ☑️ TOGGLE CHECKBOX */
+/* Toggle */
 function toggleItem(index) {
     items[index].done = !items[index].done;
     localStorage.setItem("currentList", JSON.stringify(items));
     updateUI();
 }
 
-/* 📦 SAVE LIST */
+/* Save */
 function saveList() {
     if (items.length === 0) {
         alert("Add items first!");
@@ -101,32 +95,29 @@ function saveList() {
     updateHistory();
 }
 
-/* 📂 LOAD OLD LIST */
+/* Load */
 function loadList(index) {
     items = [...lists[index].items];
     localStorage.setItem("currentList", JSON.stringify(items));
     updateUI();
 }
 
-/* ⌨️ ENTER KEY SUPPORT */
+/* Enter */
 document.addEventListener("DOMContentLoaded", () => {
-    const input = document.getElementById("item");
-
-    if (input) {
-        input.addEventListener("keypress", function(e) {
-            if (e.key === "Enter") addItem();
-        });
-    }
+    document.getElementById("item").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") addItem();
+    });
 });
 
-/* 🌙 DARK MODE */
+/* Dark mode */
 function toggleDarkMode() {
     document.body.classList.toggle("dark");
 }
 
-/* 🚀 INIT */
+/* Init */
 updateUI();
 updateHistory();
+
 
 
 
