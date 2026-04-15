@@ -1,4 +1,4 @@
-let items = [];
+let items = JSON.parse(localStorage.getItem("currentList")) || [];
 let lists = JSON.parse(localStorage.getItem("lists")) || [];
 
 /* 🔄 Update Current List */
@@ -57,6 +57,8 @@ function addItem() {
         category
     });
 
+    localStorage.setItem("currentList", JSON.stringify(items));
+
     input.value = "";
     input.focus();
 
@@ -66,20 +68,25 @@ function addItem() {
 /* ❌ Delete */
 function deleteItem(index) {
     items.splice(index, 1);
+    localStorage.setItem("currentList", JSON.stringify(items));
     updateUI();
 }
 
 /* ☑️ Toggle */
 function toggleItem(index) {
     items[index].done = !items[index].done;
+    localStorage.setItem("currentList", JSON.stringify(items));
     updateUI();
 }
 
 /* 📦 Save List */
 function saveList() {
-    if (items.length === 0) return;
+    if (items.length === 0) {
+        alert("Add items before saving!");
+        return;
+    }
 
-    const date = new Date().toLocaleDateString();
+    const date = new Date().toLocaleString();
 
     lists.push({
         date,
@@ -88,7 +95,8 @@ function saveList() {
 
     localStorage.setItem("lists", JSON.stringify(lists));
 
-    items = []; // clear current list
+    items = [];
+    localStorage.setItem("currentList", JSON.stringify(items));
 
     updateUI();
     updateHistory();
@@ -97,10 +105,11 @@ function saveList() {
 /* 📂 Load Old List */
 function loadList(index) {
     items = [...lists[index].items];
+    localStorage.setItem("currentList", JSON.stringify(items));
     updateUI();
 }
 
-/* ⌨️ Enter Key */
+/* ⌨️ Enter Support */
 document.getElementById("item").addEventListener("keypress", function(e) {
     if (e.key === "Enter") {
         addItem();
@@ -126,5 +135,6 @@ if (localStorage.getItem("darkMode") === "true") {
 /* 🚀 Init */
 updateUI();
 updateHistory();
+
 
 
