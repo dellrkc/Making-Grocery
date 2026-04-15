@@ -11,7 +11,7 @@ body {
     background: white;
     padding: 20px;
     border-radius: 12px;
-    width: 300px;
+    width: 320px;
     transition: 0.3s;
 }
 
@@ -34,11 +34,14 @@ body {
     margin-bottom: 15px;
 }
 
-input {
-    flex: 1;
+input, select {
     padding: 10px;
     border-radius: 6px;
     border: 1px solid #ccc;
+}
+
+input {
+    flex: 1;
 }
 
 /* ➕ Button */
@@ -62,6 +65,13 @@ li {
     border-radius: 6px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+}
+
+/* ☑️ Checkbox */
+input[type="checkbox"] {
+    transform: scale(1.2);
+    cursor: pointer;
 }
 
 /* 🌙 DARK MODE */
@@ -74,7 +84,7 @@ li {
     color: white;
 }
 
-.dark input {
+.dark input, .dark select {
     background: #2a2a2a;
     color: white;
     border: 1px solid #444;
@@ -83,3 +93,9 @@ li {
 .dark li {
     background: #2a2a2a;
 }
+.dark li {
+    background: #2a2a2a;
+}
+
+
+
