@@ -1,9 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grocery List App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 🎨 CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
 <div class="app">
 
+    <!-- 🌙 Dark Mode -->
     <button onclick="toggleDarkMode()" class="toggle-btn">🌙</button>
 
+    <!-- 🛒 Title -->
     <h1>🛒 Grocery List</h1>
 
+    <!-- 🧾 Input Section -->
     <div class="input">
         <input type="text" id="item" placeholder="Add grocery item">
 
@@ -17,16 +32,25 @@
         <button onclick="addItem()">+</button>
     </div>
 
-    <!-- 📦 SAVE BUTTON -->
+    <!-- 📦 Save Button -->
     <button onclick="saveList()" class="save-btn">📦 Save List</button>
 
+    <!-- 📋 Current List -->
     <ul id="list"></ul>
 
-    <h3>📜 Past Lists</h3>
+    <!-- 📜 History Title -->
+    <h3 style="margin-top:15px;">📜 Past Lists</h3>
+
+    <!-- 📜 History List -->
     <ul id="history"></ul>
 
 </div>
 
+<!-- ⚙️ JS -->
+<script src="script.js"></script>
+
+</body>
+</html>
 
 
 
