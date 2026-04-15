@@ -1,30 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>History</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+    <a href="index.html" class="nav-btn">⬅ Back</a>
+
+    <h1>📅 Grocery History</h1>
+
+    <ul id="calendarList"></ul>
+
+</div>
+
 <script>
-let lists = JSON.parse(localStorage.getItem("lists")) || [];
-const container = document.getElementById("calendarList");
+try {
+    let lists = JSON.parse(localStorage.getItem("lists")) || [];
 
-lists.forEach(list => {
-    const li = document.createElement("li");
+    const container = document.getElementById("calendarList");
 
-    const previewItems = list.items.slice(0, 3);
-
-    let previewHTML = "";
-
-    previewItems.forEach(item => {
-        previewHTML += `• ${item.text}<br>`;
-    });
-
-    if (list.items.length > 3) {
-        previewHTML += "...";
+    if (!container) {
+        throw new Error("calendarList not found");
     }
 
-    li.innerHTML = `
-        <strong>${list.date}</strong><br>
-        ${previewHTML}
-    `;
+    lists.forEach(list => {
+        const li = document.createElement("li");
 
-    container.appendChild(li);
-});
+        const previewItems = list.items.slice(0, 3);
+
+        let previewHTML = "";
+
+        previewItems.forEach(item => {
+            previewHTML += `• ${item.text}<br>`;
+        });
+
+        if (list.items.length > 3) {
+            previewHTML += "...";
+        }
+
+        li.innerHTML = `
+            <strong>${list.date}</strong><br>
+            ${previewHTML}
+        `;
+
+        container.appendChild(li);
+    });
+
+} catch (error) {
+    document.body.innerHTML = "<h2 style='text-align:center;'>⚠️ Error loading history</h2>";
+    console.error(error);
+}
 </script>
+
+</body>
+</html>
+
 
 
 
