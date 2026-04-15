@@ -64,15 +64,32 @@ function saveList() {
         return;
     }
 
+    let lists = JSON.parse(localStorage.getItem("lists")) || [];
+    let editingIndex = localStorage.getItem("editingIndex");
+
     const date = new Date().toLocaleString();
 
-    lists.push({
-        date,
-        items: [...items]
-    });
+    if (editingIndex !== null) {
+        // ✏️ OVERWRITE EXISTING LIST
+        lists[editingIndex] = {
+            date,
+            items: [...items]
+        };
+
+        // clear edit mode
+        localStorage.removeItem("editingIndex");
+
+    } else {
+        // ➕ CREATE NEW LIST
+        lists.push({
+            date,
+            items: [...items]
+        });
+    }
 
     localStorage.setItem("lists", JSON.stringify(lists));
 
+    // clear current list
     items = [];
     localStorage.setItem("currentList", JSON.stringify(items));
 
