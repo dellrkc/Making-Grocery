@@ -1,63 +1,62 @@
 body {
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     background: #f4f6f8;
     display: flex;
     justify-content: center;
-    margin-top: 50px;
+    margin-top: 40px;
     transition: 0.3s;
 }
 
 .app {
     background: white;
     padding: 20px;
-    border-radius: 12px;
-    width: 320px;
+    border-radius: 16px;
+    width: 340px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     transition: 0.3s;
 }
 
 /* 🌙 Toggle */
 .toggle-btn {
     float: right;
-    padding: 5px 10px;
-    margin-bottom: 10px;
+    padding: 6px 10px;
     background: #333;
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
 }
 
 /* 🧾 Input */
 .input {
-    display: flex;
-    gap: 5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 6px;
     margin-bottom: 10px;
 }
 
 input, select {
     padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-}
-
-input {
-    flex: 1;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    width: 100%;
 }
 
 /* ➕ Button */
-button {
-    padding: 10px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+.input button {
+    background: #4CAF50;
+    color: white;
+    border-radius: 8px;
 }
 
 /* 📦 Save Button */
 .save-btn {
     width: 100%;
-    margin-bottom: 10px;
-    background: #4CAF50;
+    margin: 10px 0;
+    background: #007BFF;
     color: white;
+    border-radius: 10px;
+    font-weight: bold;
 }
 
 /* 📋 List */
@@ -67,26 +66,39 @@ ul {
 }
 
 li {
-    background: #f9f9f9;
-    margin: 5px 0;
-    padding: 10px;
-    border-radius: 6px;
+    background: #fafafa;
+    margin: 8px 0;
+    padding: 12px;
+    border-radius: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
 /* ☑️ Checkbox */
 input[type="checkbox"] {
-    transform: scale(1.2);
+    transform: scale(1.3);
     cursor: pointer;
 }
 
-/* 📜 History */
+/* ❌ Delete */
+li button {
+    background: #ff4d4d;
+    color: white;
+    border-radius: 6px;
+    padding: 5px 8px;
+}
+
+
+/* 📜 History Section */
 #history li {
+    background: #eef3ff;
+    margin: 6px 0;
+    padding: 10px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 14px;
-    opacity: 0.8;
 }
 
 /* 🌙 DARK MODE */
@@ -108,6 +120,11 @@ input[type="checkbox"] {
 .dark li {
     background: #2a2a2a;
 }
+
+.dark #history li {
+    background: #2d2d3a;
+}
+
 
 
 
