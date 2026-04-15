@@ -172,3 +172,28 @@ li button {
     background: #1e1e1e;
     color: white;
 }
+
+/* 🔥 Sticky header */
+.header {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 10;
+    padding-bottom: 10px;
+}
+
+/* 📜 Scrollable list area */
+.scroll-area {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+/* 🗑️ Delete button */
+.delete-btn {
+    width: 100%;
+    margin-top: 8px;
+    background: #ff4d4d;
+    color: white;
+    font-weight: bold;
+}
