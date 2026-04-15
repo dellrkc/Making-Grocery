@@ -5,7 +5,6 @@
     <title>Grocery List App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- 🎨 CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,10 +14,9 @@
     <!-- 🌙 Dark Mode -->
     <button onclick="toggleDarkMode()" class="toggle-btn">🌙</button>
 
-    <!-- 🛒 Title -->
     <h1>🛒 Grocery List</h1>
 
-    <!-- 🧾 Input Section -->
+    <!-- 🧾 Input -->
     <div class="input">
         <input type="text" id="item" placeholder="Add grocery item">
 
@@ -32,21 +30,18 @@
         <button onclick="addItem()">+</button>
     </div>
 
-    <!-- 📦 Save Button -->
+    <!-- 📦 Save -->
     <button onclick="saveList()" class="save-btn">📦 Save List</button>
 
-    <!-- 📋 Current List -->
+    <!-- 📋 Current -->
     <ul id="list"></ul>
 
-    <!-- 📜 History Title -->
-    <h3 style="margin-top:15px;">📜 Past Lists</h3>
-
-    <!-- 📜 History List -->
+    <!-- 📜 History -->
+    <h3>📜 Past Lists</h3>
     <ul id="history"></ul>
 
 </div>
 
-<!-- ⚙️ JS -->
 <script src="script.js"></script>
 
 </body>
