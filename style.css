@@ -1,12 +1,13 @@
 body {
     font-family: Arial, sans-serif;
-    background: red;
- 
+    background: #f4f6f8;
+
     display: flex;
     justify-content: center;
     align-items: center;
 
     height: 100vh;
+    margin: 0;
 }
 
 .app {
@@ -14,11 +15,10 @@ body {
     padding: 20px;
     border-radius: 16px;
     width: 320px;
-
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
-/* 🌙 Toggle */
+/* Toggle */
 .toggle-btn {
     float: right;
     background: #333;
@@ -27,6 +27,18 @@ body {
     padding: 6px 10px;
     border-radius: 8px;
     cursor: pointer;
+}
+
+/* Nav */
+.nav-btn {
+    display: block;
+    margin-bottom: 10px;
+    text-align: center;
+    background: #6c63ff;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    text-decoration: none;
 }
 
 /* Input */
@@ -50,7 +62,6 @@ button {
     cursor: pointer;
 }
 
-/* Add */
 .input button {
     background: #4CAF50;
     color: white;
@@ -93,17 +104,6 @@ li button {
     color: white;
 }
 
-/* History */
-.history-section {
-    margin-top: 15px;
-}
-
-#history li {
-    background: #eef3ff;
-    cursor: pointer;
-    font-size: 14px;
-}
-
 /* Dark mode */
 .dark {
     background: #121212;
@@ -122,21 +122,6 @@ li button {
 
 .dark li {
     background: #2a2a2a;
-}
-
-.dark #history li {
-    background: #2d2d3a;
-}
-
-.nav-btn {
-    display: block;
-    margin-bottom: 10px;
-    text-align: center;
-    background: #6c63ff;
-    color: white;
-    padding: 10px;
-    border-radius: 10px;
-    text-decoration: none;
 }
 
 
