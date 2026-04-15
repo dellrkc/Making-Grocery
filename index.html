@@ -1,6 +1,5 @@
 <div class="app">
 
-    <!-- 🌙 Dark Mode -->
     <button onclick="toggleDarkMode()" class="toggle-btn">🌙</button>
 
     <h1>🛒 Grocery List</h1>
@@ -18,8 +17,15 @@
         <button onclick="addItem()">+</button>
     </div>
 
+    <button onclick="saveList()" style="margin-bottom:10px;">📦 Save List</button>
+
     <ul id="list"></ul>
 
+    <h3>📜 Past Lists</h3>
+    <ul id="history"></ul>
+
 </div>
+
+
 
 
