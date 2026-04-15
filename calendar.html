@@ -2,29 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Grocery History</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <title>History</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="app">
-
     <a href="index.html" class="nav-btn">⬅ Back</a>
 
     <h1>📅 Grocery History</h1>
 
     <ul id="calendarList"></ul>
-
 </div>
 
 <script>
 let lists = JSON.parse(localStorage.getItem("lists")) || [];
-
 const container = document.getElementById("calendarList");
 
-lists.forEach((list, index) => {
+lists.forEach(list => {
     const li = document.createElement("li");
 
     li.innerHTML = `
@@ -38,6 +33,7 @@ lists.forEach((list, index) => {
 
 </body>
 </html>
+
 
 
 
