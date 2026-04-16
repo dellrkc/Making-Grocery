@@ -1,26 +1,24 @@
 const CACHE_NAME = "grocery-app-v2";
 
 const ASSETS = [
-  "/",
-  "/index.html",
-  "/calendar.html",
-  "/style.css",
-  "/script.js",
-  "/manifest.json",
-  "/icon-192.png",
-  "/icon-512.png"
+  "./",
+  "./index.html",
+  "./calendar.html",
+  "./style.css",
+  "./script.js",
+  "./manifest.json",
+  "./icon-192.png",
+  "./icon-512.png"
 ];
 
-/* 🔥 INSTALL — cache files */
+/* 🔥 INSTALL */
 self.addEventListener("install", event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(ASSETS);
-    })
+    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
   );
 });
 
-/* 🔄 ACTIVATE — clean old cache */
+/* 🔄 ACTIVATE */
 self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys().then(keys =>
@@ -33,7 +31,7 @@ self.addEventListener("activate", event => {
   );
 });
 
-/* 🌐 FETCH — serve cached version */
+/* 🌐 FETCH */
 self.addEventListener("fetch", event => {
   event.respondWith(
     caches.match(event.request).then(response => {
@@ -41,5 +39,6 @@ self.addEventListener("fetch", event => {
     })
   );
 });
+
 
 
