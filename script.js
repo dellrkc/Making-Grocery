@@ -159,26 +159,6 @@ if ("serviceWorker" in navigator) {
 }
 
 
-function requestNotificationPermission() {
-    if ("Notification" in window) {
-        Notification.requestPermission();
-    }
-}
-
-function sendNotification(message) {
-    if (Notification.permission === "granted") {
-        new Notification("🛒 MakingGroceries", {
-            body: message,
-            icon: "icon-192.png"
-        });
-    }
-}
-
-function setReminder() {
-    setTimeout(() => {
-        sendNotification("Time to shop 🛒");
-    }, 10000); // 10 seconds
-}
 
 
 
