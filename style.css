@@ -141,7 +141,7 @@ li button {
 }
 
 /* ========================= */
-/* 🪟 MODAL (FIXED PROPERLY) */
+/* 🪟 MODAL (REAL FIX) */
 /* ========================= */
 
 .modal {
@@ -154,11 +154,12 @@ li button {
 
     background: rgba(0,0,0,0.6);
 
+    display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* 🔥 KEY FIX */
 
-    padding: 20px;
-    box-sizing: border-box;
+    padding-top: 40px;
+    overflow-y: auto; /* 🔥 allows full scroll */
 }
 
 .modal-content {
@@ -167,8 +168,7 @@ li button {
     border-radius: 12px;
     width: 300px;
 
-    max-height: 90vh;        /* 🔥 KEY FIX */
-    overflow-y: auto;        /* 🔥 SCROLL INSIDE */
+    max-height: none; /* 🔥 remove limits */
 }
 
 /* ❌ Close button */
@@ -177,16 +177,6 @@ li button {
     text-align: right;
     cursor: pointer;
     margin-bottom: 10px;
-}
-
-/* Scrollbar (nice touch) */
-.modal-content::-webkit-scrollbar {
-    width: 6px;
-}
-
-.modal-content::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 10px;
 }
 
 /* ========================= */
