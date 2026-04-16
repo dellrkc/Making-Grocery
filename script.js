@@ -174,6 +174,16 @@ function sendNotification(message) {
     }
 }
 
+function setReminder() {
+    setTimeout(() => {
+        sendNotification("Time to shop 🛒");
+    }, 10000); // 10 seconds
+}
+
+
+
+
+
 
 
 
