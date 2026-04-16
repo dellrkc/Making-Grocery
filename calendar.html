@@ -124,7 +124,10 @@ function shareList() {
     const shareText = `🛒 Grocery List\n\n${text}\n\nTotal: $${total}`;
 
     if (navigator.share) {
-        navigator.share({ title: "Grocery List", text: shareText });
+        navigator.share({
+    title: "MakingGroceries 🛒",
+    text: shareText
+});
     } else {
         navigator.clipboard.writeText(shareText).then(() => {
             alert("List copied to clipboard!");
