@@ -4,33 +4,30 @@
     <meta charset="UTF-8">
     <title>Grocery History</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="app">
 
-    <!-- 🔥 STICKY HEADER -->
     <div class="header">
-        <a href="index.html" class="nav-btn">⬅ Back</a>
         <h1>📅 Grocery History</h1>
     </div>
 
-    <!-- 📜 SCROLLABLE LIST -->
     <ul id="calendarList" class="scroll-area"></ul>
 
 </div>
 
-<!-- 🪟 MODAL -->
-<div id="modal" class="modal">
+<!-- MODAL -->
+<div id="modalOverlay" class="modal-overlay" onclick="handleOverlayClick(event)">
     <div class="modal-content">
 
         <span class="close-btn" onclick="closeModal()">❌</span>
 
         <h2>🛒 Full List</h2>
-
         <div id="modalItems"></div>
+
+        <a href="index.html" class="nav-btn" style="display:block; text-align:center; margin-top:12px;">⬅ Back</a>
 
         <button onclick="editList()" class="save-btn">✏️ Edit List</button>
         <button onclick="deleteList()" class="delete-btn">🗑️ Delete List</button>
@@ -42,114 +39,82 @@
 let selectedIndex = null;
 
 document.addEventListener("DOMContentLoaded", () => {
+    renderList();
+});
 
+function renderList() {
     let lists = JSON.parse(localStorage.getItem("lists")) || [];
     const container = document.getElementById("calendarList");
+    container.innerHTML = "";
 
-    lists.forEach((list, index) => {
-    const li = document.createElement("li");
-
-    const previewItems = list.items.slice(0, 3);
-
-    let previewHTML = "";
-
-    previewItems.forEach(item => {
-        previewHTML += `• ${item.text}<br>`;
-    });
-
-    if (list.items.length > 3) {
-        previewHTML += "...";
+    if (lists.length === 0) {
+        container.innerHTML = "<p style='color:#888; text-align:center;'>No saved lists yet.</p>";
+        return;
     }
 
-    const dateText = list.updatedAt
-    ? `Updated: ${list.updatedAt}`
-    : list.createdAt
-        ? `Created: ${list.createdAt}`
-        : `Created: ${list.date}`; // 🔥 fallback for old data
+    lists.forEach((list, index) => {
+        const li = document.createElement("li");
 
-        
-    li.innerHTML = `
-        <strong>${dateText}</strong><br>
-        ${previewHTML}
-    `;
+        const previewItems = list.items.slice(0, 3);
+        let previewHTML = previewItems.map(item => `• ${item.text}`).join("<br>");
+        if (list.items.length > 3) previewHTML += "<br>...";
 
-    li.onclick = () => openModal(index);
+        const dateLabel = list.updatedAt
+            ? `Updated: ${list.updatedAt}`
+            : `Created: ${list.createdAt}`;
 
-    container.appendChild(li);
-});
+        li.innerHTML = `
+            <div class="history-card">
+                <div class="history-date">${dateLabel}</div>
+                <div class="history-preview">${previewHTML}</div>
+            </div>
+        `;
 
-    
-});
+        li.onclick = () => openModal(index);
+        container.appendChild(li);
+    });
+}
 
-/* 🪟 OPEN MODAL */
 function openModal(index) {
     let lists = JSON.parse(localStorage.getItem("lists")) || [];
-
     selectedIndex = index;
 
-    const modal = document.getElementById("modal");
-    const modalItems = document.getElementById("modalItems");
-
     const list = lists[index];
+    let fullHTML = list.items.map(item => `• ${item.text}`).join("<br>");
+    document.getElementById("modalItems").innerHTML = fullHTML;
 
-    let fullHTML = "";
-
-    list.items.forEach(item => {
-        fullHTML += `• ${item.text}<br>`;
-    });
-
-    modalItems.innerHTML = fullHTML;
-
-    modal.style.display = "flex";
+    document.getElementById("modalOverlay").style.display = "flex";
 }
 
-/* ❌ CLOSE */
 function closeModal() {
-    document.getElementById("modal").style.display = "none";
+    document.getElementById("modalOverlay").style.display = "none";
 }
 
-/* ✏️ EDIT */
+function handleOverlayClick(e) {
+    if (e.target === document.getElementById("modalOverlay")) closeModal();
+}
+
 function editList() {
     let lists = JSON.parse(localStorage.getItem("lists")) || [];
-
     if (selectedIndex === null) return;
-
-    const listToEdit = lists[selectedIndex];
-
-    // send items
-    localStorage.setItem("currentList", JSON.stringify(listToEdit.items));
-
-    // 🔥 NEW: track which list we're editing
+    localStorage.setItem("currentList", JSON.stringify(lists[selectedIndex].items));
     localStorage.setItem("editingIndex", selectedIndex);
-
-    window.location.replace("index.html");
+    window.location.href = "index.html";
 }
 
-/* 🗑️ DELETE */
 function deleteList() {
     let lists = JSON.parse(localStorage.getItem("lists")) || [];
-
     if (selectedIndex === null) return;
-
     if (!confirm("Delete this list?")) return;
-
     lists.splice(selectedIndex, 1);
-
     localStorage.setItem("lists", JSON.stringify(lists));
-
-    location.reload();
+    closeModal();
+    renderList();
 }
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
 
 
 
