@@ -165,6 +165,17 @@ function requestNotificationPermission() {
     }
 }
 
+function sendNotification(message) {
+    if (Notification.permission === "granted") {
+        new Notification("🛒 MakingGroceries", {
+            body: message,
+            icon: "icon-192.png"
+        });
+    }
+}
+
+
+
 
 
 
