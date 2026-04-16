@@ -71,6 +71,23 @@ function renderList() {
             : `Created: ${list.date}`;
 
     li.innerHTML = `
+        <strong>${list.name || "Unnamed List"}</strong><br>
+        <small>${dateText}</small><br>
+        ${previewHTML}
+    `;
+
+    li.onclick = () => openModal(index);
+
+    container.appendChild(li);
+});
+
+    const dateText = list.updatedAt
+        ? `Updated: ${list.updatedAt}`
+        : list.createdAt
+            ? `Created: ${list.createdAt}`
+            : `Created: ${list.date}`;
+
+    li.innerHTML = `
         <div class="list-card">
             <strong class="list-title">${list.name || "Unnamed List"}</strong>
             <div class="list-date">${dateText}</div>
