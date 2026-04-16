@@ -1,36 +1,37 @@
-/* 🌍 Base Layout */
+/* Base */
 body {
     font-family: Arial, sans-serif;
     background: #f4f6f8;
-
     display: flex;
     justify-content: center;
-    align-items: center;
-
-    height: 100vh;
+    align-items: flex-start;
+    min-height: 100vh;
     margin: 0;
+    padding: 30px 0;
+    box-sizing: border-box;
 }
 
-/* 📦 App Container */
+/* App container */
 .app {
     background: white;
     padding: 20px;
     border-radius: 16px;
     width: 320px;
-
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
-/* 🔥 Sticky Header */
-.header {
-    position: sticky;
-    top: 0;
-    background: white;
-    z-index: 10;
-    padding-bottom: 10px;
+/* Dark mode toggle */
+.toggle-btn {
+    float: right;
+    background: #333;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
-/* 🔙 Navigation Button */
+/* Nav button */
 .nav-btn {
     display: block;
     margin-bottom: 10px;
@@ -42,32 +43,20 @@ body {
     text-decoration: none;
 }
 
-/* 🌙 Dark Mode Toggle */
-.toggle-btn {
-    float: right;
-    background: #333;
-    color: white;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-/* 🧾 Input Section */
+/* Input row */
 .input {
     display: flex;
     gap: 6px;
     margin-bottom: 10px;
 }
 
-input {
+input[type="text"] {
     flex: 1;
     padding: 10px;
     border-radius: 8px;
     border: 1px solid #ddd;
 }
 
-/* 🔘 Buttons */
 button {
     padding: 10px;
     border: none;
@@ -75,13 +64,11 @@ button {
     cursor: pointer;
 }
 
-/* ➕ Add Button */
 .input button {
     background: #4CAF50;
     color: white;
 }
 
-/* 📦 Save Button */
 .save-btn {
     width: 100%;
     margin-bottom: 10px;
@@ -90,26 +77,11 @@ button {
     font-weight: bold;
 }
 
-/* 🗑️ Delete Button */
-.delete-btn {
-    width: 100%;
-    margin-top: 8px;
-    background: #ff4d4d;
-    color: white;
-    font-weight: bold;
-}
-
-/* 📋 List */
+/* List */
 ul {
     list-style: none;
     padding: 0;
-}
-
-/* 📜 Scrollable History */
-.scroll-area {
-    max-height: 400px;
-    overflow-y: auto;
-    padding-right: 5px;
+    margin: 0;
 }
 
 li {
@@ -117,72 +89,110 @@ li {
     margin: 8px 0;
     padding: 12px;
     border-radius: 10px;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-/* 📅 History items */
-#calendarList li {
-    cursor: pointer;
-    background: #eef3ff;
-}
-
-/* ☑️ Checkbox */
 input[type="checkbox"] {
     transform: scale(1.3);
 }
 
-/* ❌ Delete inside list */
 li button {
     background: #ff4d4d;
     color: white;
 }
 
-/* ========================= */
-/* 🪟 MODAL (REAL FIX) */
-/* ========================= */
+/* History cards */
+#calendarList li {
+    cursor: pointer;
+    background: #eef3ff;
+    display: block;
+    padding: 0;
+}
 
-.modal {
+.history-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 12px;
+    gap: 10px;
+}
+
+.history-date {
+    font-size: 13px;
+    font-weight: bold;
+    color: #444;
+    flex: 1;
+}
+
+.history-preview {
+    font-size: 13px;
+    color: #555;
+    text-align: right;
+    line-height: 1.6;
+}
+
+/* Sticky header */
+.header {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 10;
+    padding-bottom: 10px;
+}
+
+/* Scrollable area */
+.scroll-area {
+    max-height: 420px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+/* Modal overlay */
+.modal-overlay {
     display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-
     background: rgba(0,0,0,0.6);
-
-    display: flex;
     justify-content: center;
-    align-items: flex-start; /* 🔥 KEY FIX */
-
-    padding-top: 40px;
-    overflow-y: auto; /* 🔥 allows full scroll */
+    align-items: center;
+    z-index: 100;
 }
 
+/* Modal box */
 .modal-content {
     background: white;
     padding: 20px;
     border-radius: 12px;
     width: 300px;
-
-    max-height: none; /* 🔥 remove limits */
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
 }
 
-/* ❌ Close button */
 .close-btn {
-    display: block;
-    text-align: right;
+    float: right;
     cursor: pointer;
-    margin-bottom: 10px;
+    font-size: 18px;
 }
 
-/* ========================= */
-/* 🌙 DARK MODE */
-/* ========================= */
+.delete-btn {
+    width: 100%;
+    margin-top: 8px;
+    background: #ff4d4d;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
 
+/* Dark mode */
 .dark {
     background: #121212;
 }
@@ -192,7 +202,7 @@ li button {
     color: white;
 }
 
-.dark input {
+.dark input[type="text"] {
     background: #2a2a2a;
     color: white;
     border: 1px solid #444;
@@ -206,10 +216,18 @@ li button {
     background: #2d2d3a;
 }
 
+.dark .history-date { color: #ccc; }
+.dark .history-preview { color: #aaa; }
+
 .dark .modal-content {
     background: #1e1e1e;
     color: white;
 }
+
+.dark .header {
+    background: #1e1e1e;
+}
+
 
 
 
