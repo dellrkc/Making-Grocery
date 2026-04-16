@@ -121,7 +121,7 @@ function shareList() {
     }).join("\n");
 
     const total = calcTotal(list.items);
-    const shareText = `🛒 Grocery List\n\n${text}\n\nTotal: $${total}`;
+    const shareText = `🛒 MakingGroceries\n\n${text}\n\nTotal: $${total}`;
 
     if (navigator.share) {
         navigator.share({
