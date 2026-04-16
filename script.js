@@ -2,7 +2,7 @@ let items = JSON.parse(localStorage.getItem("currentList")) || [];
 
 /* 💰 TOTAL */
 function calcTotal() {
-    return items.reduce((sum, i) => sum + (parseFloat(i.price) || 0), 0).toFixed(2);
+    return items.reduce((sum, i) => sum + (parseFloat(i.price) || 0), 0);
 }
 
 /* 🔄 UI */
@@ -15,22 +15,30 @@ function updateUI() {
     items.forEach((item, index) => {
         const li = document.createElement("li");
 
+        const price = parseFloat(item.price) || 0;
+
         li.innerHTML = `
             <div class="li-left">
                 <input type="checkbox" ${item.done ? "checked" : ""} onchange="toggleItem(${index})">
                 <span style="text-decoration:${item.done ? 'line-through' : 'none'}; flex:1;">
                     ${item.text}
                 </span>
-                ${item.price ? `<span class="item-price">$${parseFloat(item.price).toFixed(2)}</span>` : ""}
+
+                ${price ? `<span class="item-price ${price > 20 ? 'expensive' : ''}">
+                    $${price.toFixed(2)}
+                </span>` : ""}
+
                 ${item.link ? `<a href="${item.link}" target="_blank" class="item-link">🔗</a>` : ""}
             </div>
+
             <button class="del-btn" onclick="deleteItem(${index})">✕</button>
         `;
 
         list.appendChild(li);
     });
 
-    document.getElementById("totalPrice").textContent = "$" + calcTotal();
+    const total = calcTotal();
+    document.getElementById("totalPrice").textContent = "$" + total.toFixed(2);
 }
 
 /* ➕ ADD ITEM */
@@ -111,10 +119,20 @@ function saveList() {
 /* ⌨️ ENTER KEY */
 document.addEventListener("DOMContentLoaded", () => {
     const input = document.getElementById("item");
+    const linkInput = document.getElementById("itemLink");
 
     if (input) {
         input.addEventListener("keypress", e => {
             if (e.key === "Enter") addItem();
+        });
+    }
+
+    /* 🔥 AUTO-FOCUS PRICE WHEN LINK ADDED */
+    if (linkInput) {
+        linkInput.addEventListener("blur", () => {
+            if (linkInput.value.trim()) {
+                document.getElementById("itemPrice").focus();
+            }
         });
     }
 
@@ -130,6 +148,7 @@ function toggleDarkMode() {
 if (localStorage.getItem("darkMode") === "true") {
     document.body.classList.add("dark");
 }
+
 
 
 
