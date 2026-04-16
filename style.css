@@ -374,3 +374,29 @@ input[type="checkbox"] {
 .dark .item-price { background: #1a3a1a; color: #81c784; }
 .dark .meta-label { color: #888; }
 
+
+/* INPUT CARD FIX */
+.input-card {
+    background: #f7f8fc;
+    padding: 14px;
+    border-radius: 14px;
+    margin-bottom: 12px;
+    border: 1px solid #eee;
+}
+
+.input-card > input {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.add-btn {
+    margin-top: 6px;
+}
+
+ul {
+    margin-top: 8px;
+}
+
+
+
+
