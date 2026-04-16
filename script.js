@@ -159,6 +159,15 @@ if ("serviceWorker" in navigator) {
 }
 
 
+function requestNotificationPermission() {
+    if ("Notification" in window) {
+        Notification.requestPermission();
+    }
+}
+
+
+
+
 
 
 
