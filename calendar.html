@@ -50,25 +50,38 @@ function renderList() {
     }
 
     lists.forEach((list, index) => {
-        const li = document.createElement("li");
-        const previewItems = list.items.slice(0, 3);
-        let previewHTML = previewItems.map(i => `• ${i.text}`).join("<br>");
-        if (list.items.length > 3) previewHTML += "<br><span class='more'>+" + (list.items.length - 3) + " more</span>";
+    const li = document.createElement("li");
 
-        const total = calcTotal(list.items);
-        const dateLabel = list.updatedAt ? `Updated: ${list.updatedAt}` : `Created: ${list.createdAt}`;
+    const previewItems = list.items.slice(0, 3);
 
-        li.innerHTML = `
-            <div class="history-card">
-                <div class="history-left">
-                    <div class="history-date">${dateLabel}</div>
-                    <div class="history-preview">${previewHTML}</div>
-                </div>
-                <div class="history-total">$${total}</div>
-            </div>`;
-        li.onclick = () => openModal(index);
-        container.appendChild(li);
+    let previewHTML = "";
+
+    previewItems.forEach(item => {
+        previewHTML += `• ${item.text}<br>`;
     });
+
+    if (list.items.length > 3) {
+        previewHTML += "...";
+    }
+
+    const dateText = list.updatedAt
+        ? `Updated: ${list.updatedAt}`
+        : list.createdAt
+            ? `Created: ${list.createdAt}`
+            : `Created: ${list.date}`;
+
+    li.innerHTML = `
+        <div class="list-card">
+            <strong class="list-title">${list.name || "Unnamed List"}</strong>
+            <div class="list-date">${dateText}</div>
+            <div class="list-preview">${previewHTML}</div>
+        </div>
+    `;
+
+    li.onclick = () => openModal(index);
+
+    container.appendChild(li);
+});
 }
 
 function calcTotal(items) {
